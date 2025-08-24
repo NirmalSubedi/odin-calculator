@@ -1,0 +1,23 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+div.calculator {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100px;
+    justify-content: space-between;
+    background-color: #eee;
+    padding: 0.2rem;
+}
+
+div.calculator > button {
+    width: 23%;
+}
+
+div.calculator > .display {
+    width: 100%;
+    text-align: right;
+    background-color: white;
+}
