@@ -14,32 +14,66 @@ function divide(a, b) {
     return a / b;
 }
 
-console.log(add(8,6));
-console.log(subtract(8,6));
-console.log(multiply(8,6));
-console.log(divide(8,6));
-
 let firstNum, 
-operator, 
-secondNum;
+    operator, 
+    secondNum;
 
 const operate = function (firstNum, operator, secondNum) {
-    operator === '+' ? add(firstNum, secondNum) :
-    operator === '-' ? subtract(firstNum, secondNum) :
-    operator === '*' ? multiply(firstNum, secondNum) :
-    operator === '/' ? divide(firstNum, secondNum) : console.log('error');
-}
-
+    switch (operator) {
+        case 'add': 
+            return add(firstNum, secondNum);
+        case 'subtract': 
+            return subtract(firstNum, secondNum);
+        case 'multiply': 
+            return multiply(firstNum, secondNum);
+        case 'divide': 
+            return divide(firstNum, secondNum);
+        default: 
+            'error'
+            break;
+        }
+    }
+    
+    
 const display = document.querySelector(".display");
-let displayValue;
+let displayValue = '';
 let digits = document.querySelectorAll(".calculator > button");
 digits = [...digits];
+let classes = [];
+const operatorList = ['+', '-', 'x', '&divide;'];
 
 for (let i = 0; i < digits.length; i++) {
+
+    classes.push(digits[i].getAttribute("class"));
+
     digits[i].addEventListener("click", (event) => {
-        if (display.textContent === '0') display.textContent = '';
-        display.textContent += event.target.textContent;
-        if (digits[i].textContent === "C") {
-            display.textContent = '0'};
-    });
-}
+
+        
+        if (classes[i] === 'add' || classes[i] === 'subtract' || classes[i] === 'multiply' || classes[i] === 'divide') {
+            displayValue = display.value;
+            firstNum = Number(displayValue);
+            console.log(firstNum)
+            operator = classes[i];
+            console.log(operator);
+            console.log(secondNum);
+            console.log(displayValue);
+            displayValue = '';
+        } 
+        else if (classes[i] === 'clear') {
+            displayValue = '0';
+            display.value = displayValue;
+        } 
+        else if (classes[i] === "equal") {
+            secondNum = Number(displayValue);
+            displayValue = operate(firstNum, operator, secondNum);
+            display.value = displayValue;
+        }
+        else {
+            if (display.value === '0') {
+                displayValue = '';
+            } 
+            displayValue += event.target.textContent;
+            display.value = displayValue;
+        }
+    })
+};
