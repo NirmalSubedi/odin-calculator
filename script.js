@@ -16,22 +16,29 @@ function divide(a, b) {
 
 let firstNum, 
     operator, 
-    secondNum;
+    secondNum,
+    result;
 
 const operate = function (firstNum, operator, secondNum) {
     switch (operator) {
         case 'add': 
-            return add(firstNum, secondNum);
+            result = add(firstNum, secondNum);
+            break;
         case 'subtract': 
-            return subtract(firstNum, secondNum);
+            result = subtract(firstNum, secondNum);
+            break;
         case 'multiply': 
-            return multiply(firstNum, secondNum);
+            result = multiply(firstNum, secondNum);
+            break;
         case 'divide': 
-            return divide(firstNum, secondNum);
+            result = divide(firstNum, secondNum);
+            break;
         default: 
             'error'
             break;
         }
+    return Math.round(result * 10000) / 10000;
+
     }
 
 const display = document.querySelector(".display");
@@ -39,7 +46,6 @@ let displayValue = '';
 let digits = document.querySelectorAll(".calculator > button");
 digits = [...digits];
 let classes = [];
-const operatorList = ['+', '-', 'x', '&divide;'];
 
 for (let i = 0; i < digits.length; i++) {
     
