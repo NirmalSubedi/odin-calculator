@@ -6,14 +6,22 @@
 div.calculator {
     display: flex;
     flex-wrap: wrap;
-    width: 100px;
+    max-width: 250px;
+    height: 220px;
     justify-content: space-between;
     background-color: #eee;
     padding: 0.2rem;
+    gap: 0.2rem;
 }
 
 div.calculator > button {
-    width: 23%;
+    flex: 1 1 23%;
+    font-size: 1rem;
+}
+
+div.calculator > button.backspace,
+div.calculator > button.clear {
+    flex: 1 1 48%;
 }
 
 div.calculator > .display {
