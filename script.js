@@ -208,5 +208,10 @@ display.addEventListener('keydown', (event) => {
         displayValue += event.key;
         display.value = displayValue;
     }
+
+    // Error handling
+    if (secondNum === 0 && operator === 'divide') display.value = 'Error: Try something else ;)'; // Number divided by zero
+    if (classes[i] === 'equal' && typeof firstNum !== 'number') display.value = 'Enter a digit'; // Calculating with no number
+
     return;
 })
