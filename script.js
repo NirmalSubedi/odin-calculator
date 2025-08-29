@@ -47,6 +47,11 @@ let digits = document.querySelectorAll(".calculator > button");
 digits = [...digits];
 let classes = [];
 
+function getFirstNum() {
+    displayValue = display.value;
+    return firstNum = Number(displayValue);
+}
+
 for (let i = 0; i < digits.length; i++) {
 
     classes.push(digits[i].getAttribute("class"));
@@ -67,7 +72,6 @@ for (let i = 0; i < digits.length; i++) {
             }
         }
 
-        
         if (classes[i] === 'add' || classes[i] === 'subtract' || classes[i] === 'multiply' || classes[i] === 'divide') {
             displayValue = display.value;
             firstNum = Number(displayValue);
@@ -101,15 +105,108 @@ for (let i = 0; i < digits.length; i++) {
             }
             if (display.value === '0' && classes[i] !== 'decimal') {
                 displayValue = '';
-            } else {
             }
             displayValue += event.target.textContent;
             display.value = displayValue;
         }
-        
+
         // Error handling
-        if (secondNum === 0 && operator === 'divide') display.value = 'Error :('; // Number divided by zero
+        if (secondNum === 0 && operator === 'divide') display.value = 'Error: Try something else ;)'; // Number divided by zero
         if (classes[i] === 'equal' && typeof firstNum !== 'number') display.value = 'Enter a digit'; // Calculating with no number
 
     })
+
 };
+
+display.focus();
+
+display.addEventListener('keydown', (event) => {
+    event.preventDefault();
+
+    if ((event.key === '+' || event.key === '-' || event.key === '*' || event.key === '/')
+        && typeof firstNum === 'number') {
+        if (!displayValue) {
+        } else {
+            secondNum = Number(display.value);
+            displayValue = operate(firstNum, operator, secondNum);
+            display.value = displayValue;
+            firstNum = Number(displayValue);
+            if (event.key === "+") operator = 'add';
+            if (event.key === "-") operator = 'subtract';
+            if (event.key === "*") operator = 'multiply';
+            if (event.key === "/") operator = 'subtract';
+            displayValue = '';
+        }
+    }
+
+
+    if (event.key === '+') {
+        getFirstNum();
+        operator = 'add';
+        displayValue = '';
+    }
+    else if (event.key === '-') {
+        getFirstNum();
+        operator = 'subtract';
+        displayValue = '';
+    }
+    else if (event.key === '*') {
+        getFirstNum();
+        operator = 'multiply';
+        displayValue = '';
+    }
+    else if (event.key === '/') {
+        getFirstNum();
+        operator = 'divide';
+        displayValue = '';
+
+    }
+    else if (event.key === '.') {
+        if (displayValue.split(".").length - 1 === 1) {
+            document.querySelector('.decimal').toggleAttribute("disabled", true);
+        }
+        else if (display.value === '') {
+            displayValue = `0${event.key}`;
+            display.value = displayValue;
+        }
+        else {
+            document.querySelector('.decimal').toggleAttribute("disabled", false);
+            displayValue += event.key;
+            display.value = displayValue;
+        }
+    }
+    else if (event.key === "=" || event.key === "Enter") {
+        secondNum = Number(displayValue);
+        displayValue = operate(firstNum, operator, secondNum);
+        display.value = displayValue;
+        displayValue = '';
+        firstNum = 0;
+    }
+    else if (event.key === 'Backspace') {
+        if (display.value === '') {
+            displayValue = '0';
+            firstNum = '';
+            secondNum = '';
+            operator = '';
+            document.querySelector('.decimal').toggleAttribute("disabled", false);
+            display.value = displayValue;
+        }
+        displayValue = display.value.slice(0, -1);
+        display.value = displayValue;
+    }
+    else if (event.key === '1' ||
+        event.key === '2' ||
+        event.key === '3' ||
+        event.key === '4' ||
+        event.key === '5' ||
+        event.key === '6' ||
+        event.key === '7' ||
+        event.key === '8' ||
+        event.key === '9' ||
+        event.key === '0'
+    ) {
+        displayValue += event.key;
+        display.value = displayValue;
+    }
+    return;
+})
