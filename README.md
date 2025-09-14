@@ -1,4 +1,4 @@
 # odin-calculator
-A calculator built using html, css, and js.
+A calculator that performs arithmetic operations such as addition(+), subtraction(-), multiplication(*), and division(/) on two numbers.
 
-[Try It!](https://nirmalsubedi.github.io/odin-calculator/)
+[Calculate!](https://nirmalsubedi.github.io/odin-calculator/)
